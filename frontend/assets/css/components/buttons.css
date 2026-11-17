@@ -1,0 +1,37 @@
+/**
+ * @format
+ * @chokinyan
+ */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	padding: calc(var(--space-2) - var(--stroke-pen))
+		calc(var(--space-4) - var(--stroke-pen));
+	border: var(--stroke-pen) solid transparent;
+	border-radius: var(--radius-s);
+
+	font: 500 14px/20px var(--font-ui); /* style « Cahier/UI » */
+	color: var(--ink);
+	background: transparent;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+
+	transition:
+		background-color 0.15s,
+		color 0.15s,
+		box-shadow 0.15s;
+}
+
+.btn-encre {
+	background: var(--ink);
+	color: var(--paper-raised);
+	box-shadow: var(--shadow-encre);
+}
+
+.btn-encre:hover {
+	background: var(--pen);
+}
