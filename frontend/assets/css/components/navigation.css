@@ -1,0 +1,325 @@
+/* =========================================================================
+   Navigation : Élément de nav, Marge (sidebar), Barre du haut,
+                Intercalaires, Barre du haut mobile, Onglets mobile
+   ========================================================================= */
+
+/* --- Élément de navigation ------------------------------------------------
+   Figma : « Nav », État = Défaut | Survol | Actif
+   <a class="nav-item" href="…" aria-current="page">       ← actif
+     <svg class="icon">…</svg>
+     <span class="nav-item__label">ENSISA · 1A IR</span>
+     <span class="nav-item__compteur">3</span>             ← optionnel
+   </a>                                                                    */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-s);
+  color: var(--ink-soft);
+  font: 500 14px/20px var(--font-ui);
+  text-decoration: none;
+}
+.nav-item__label {
+  padding: var(--space-0-5) var(--space-1);
+  border-radius: var(--radius-s);
+}
+.nav-item__compteur {
+  margin-left: auto;
+  font: 400 12px/16px var(--font-mono);
+  color: var(--ink-faint);
+}
+.nav-item:hover {
+  background: var(--paper-shade);
+  color: var(--ink);
+}
+.nav-item[aria-current="page"] {
+  color: var(--ink);
+}
+.nav-item[aria-current="page"] .nav-item__label {
+  background: var(--hl-yellow);           /* surligné jaune */
+}
+.nav-item[aria-current="page"]:hover {
+  background: transparent;
+}
+.nav-item:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* --- Marge (sidebar) -------------------------------------------------------
+   Figma : « Marge », Espace = Étudiant | Admin
+   Bureau : colonne fixe de 264 px, bordure droite rouge (marge du cahier).
+   Mobile : tiroir ouvert par le bouton menu (API popover) :
+     <button popovertarget="menu">…</button>
+     <nav class="marge" id="menu" popover>…</nav>                          */
+.marge {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 264px;
+  padding: var(--space-8) var(--space-5) var(--space-6);
+  background: var(--paper);
+  border-right: var(--stroke-pen) solid var(--margin);
+  color: var(--ink);
+}
+/* Le popover est masqué par défaut par le navigateur : sur bureau on
+   l'affiche comme une colonne normale. */
+.marge[popover] {
+  position: sticky;
+  top: 0;
+  inset: auto;
+  height: 100vh;
+  margin: 0;
+  border-width: 0 var(--stroke-pen) 0 0;
+  overflow-y: auto;
+  display: flex;
+}
+
+.marge__logo {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-2) var(--space-6);
+  color: var(--ink);
+  text-decoration: none;
+}
+.marge__nom {
+  font: italic 600 32px/36px var(--font-title);   /* Cahier/Logo */
+  letter-spacing: -0.5px;
+}
+.marge__sous-titre {
+  font: 400 21px/22px var(--font-hand);
+  color: var(--pen);
+  transform: rotate(-2deg);
+  transform-origin: left;
+}
+.marge__rubrique {
+  padding: var(--space-5) var(--space-2) var(--space-1);
+  font: 500 11px/14px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.marge__retour {
+  margin-top: auto;
+  padding: 0 var(--space-2) var(--space-3);
+}
+.marge__moi {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding: var(--space-4) var(--space-2) 0;
+  border-top: var(--stroke-hair) solid var(--rule);
+}
+.marge__retour + .marge__moi {
+  margin-top: 0;
+}
+.marge__moi-nom {
+  font: 500 14px/20px var(--font-ui);
+}
+.marge__moi-role {
+  font: 400 12px/16px var(--font-mono);
+  color: var(--ink-faint);
+}
+
+/* --- Barre du haut (bureau) -----------------------------------------------
+   Figma : « Barre du haut », Type = Recherche | Titre                     */
+.barre-haut {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-8);
+  border-bottom: var(--stroke-hair) solid var(--rule);
+}
+.barre-haut__titre {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font: 600 24px/30px var(--font-title);   /* Cahier/Title */
+  letter-spacing: -0.5px;
+}
+.barre-haut__titre .note {
+  font-size: 21px;
+}
+.barre-haut__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-left: auto;
+}
+.barre-haut__actions a {
+  color: var(--ink-soft);
+}
+
+/* Recherche « sur la ligne » */
+.recherche {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 420px;
+  max-width: 100%;
+  padding: var(--space-1) 0;
+  border-bottom: var(--stroke-hair) solid var(--ink-faint);
+  color: var(--ink-faint);
+}
+.recherche input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: 400 15px/22px var(--font-body);    /* Cahier/Body S */
+  color: var(--ink);
+}
+.recherche input::placeholder {
+  color: var(--ink-faint);
+}
+.recherche input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.recherche:focus-within {
+  border-bottom-color: var(--pen);
+}
+
+/* --- Intercalaires (filtres / onglets) ------------------------------------
+   Figma : « Intercalaire », État = Défaut | Survol | Actif
+   <nav class="intercalaires" aria-label="Trier">
+     <a class="intercalaire" href="?tri=recents" aria-current="page">Récents</a>
+     <a class="intercalaire" href="?tri=populaires">Populaires</a>
+   </nav>
+   L'onglet actif « mord » sur le trait du dessous, comme un vrai classeur. */
+.intercalaires {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-1);
+  border-bottom: var(--stroke-hair) solid var(--rule);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.intercalaire {
+  flex-shrink: 0;
+  margin-bottom: -1px;
+  padding: var(--space-2) var(--space-4);
+  border: var(--stroke-hair) solid var(--rule);
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+  background: var(--paper-shade);
+  color: var(--ink-soft);
+  font: 500 14px/20px var(--font-ui);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.intercalaire:hover {
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+.intercalaire[aria-current="page"],
+.intercalaire[aria-selected="true"] {
+  background: var(--paper-raised);
+  border-bottom-color: var(--paper-raised);
+  color: var(--ink);
+}
+.intercalaire:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* --- Barre du haut mobile -------------------------------------------------
+   Figma : « Barre du haut · mobile », Type = Accueil | Retour            */
+.barre-mobile {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: none;                      /* visible seulement sous 768 px */
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper-raised);
+  border-bottom: var(--stroke-hair) solid var(--rule);
+}
+.barre-mobile__bouton {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.barre-mobile__logo {
+  font: italic 600 32px/36px var(--font-title);
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.barre-mobile__titre {
+  font: 600 18px/24px var(--font-title);   /* Cahier/Title S */
+}
+.barre-mobile__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+}
+.barre-mobile__actions a {
+  color: var(--ink-soft);
+}
+
+/* --- Onglets mobile (barre du bas) ----------------------------------------
+   Figma : « Barre d'onglets · mobile » + « Onglet · mobile » (Défaut | Actif) */
+.onglets-mobile {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: none;                      /* visible seulement sous 768 px */
+  padding: var(--space-2) var(--space-2) var(--space-4);
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  background: var(--paper-raised);
+  border-top: var(--stroke-hair) solid var(--rule);
+}
+.onglet-mobile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) 0;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.onglet-mobile span {
+  padding: var(--space-0-5) var(--space-1);
+  border-radius: var(--radius-s);
+  font: 500 11px/14px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.onglet-mobile[aria-current="page"] {
+  color: var(--ink);
+}
+.onglet-mobile[aria-current="page"] span {
+  background: var(--hl-yellow);
+}
+
+/* --- Bascule bureau / mobile ---------------------------------------------- */
+@media (max-width: 767px) {
+  .barre-haut { display: none; }
+  .barre-mobile { display: flex; }
+  .onglets-mobile { display: flex; }
+
+  /* La marge devient un tiroir */
+  .marge[popover] {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(300px, 85vw);
+    height: 100dvh;
+    box-shadow: var(--shadow-tampon);
+  }
+  .marge[popover]:not(:popover-open) {
+    display: none;
+  }
+  .marge::backdrop {
+    background: rgba(31, 41, 68, 0.35);
+  }
+}

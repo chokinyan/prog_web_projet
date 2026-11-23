@@ -1,0 +1,112 @@
+/* =========================================================================
+   Page d'accueil : Atout, Question FAQ, Étiquette de couverture
+   ========================================================================= */
+
+/* --- Atout ----------------------------------------------------------------
+   <div class="atout">
+     <span class="atout__pastille"><svg class="icon icon--22">…</svg></span>
+     <div><h3 class="atout__titre">Que des étudiants vérifiés</h3>
+          <p class="atout__texte">…</p></div>
+   </div>                                                                  */
+.atout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: var(--stroke-hair) dashed var(--rule-blue);
+}
+.atout__pastille {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--hl-yellow);
+  color: var(--ink);
+}
+.atout__titre {
+  font: 600 18px/24px var(--font-title);
+  color: var(--ink);
+}
+.atout__texte {
+  margin-top: var(--space-1);
+  font: 400 17px/26px var(--font-body);
+  color: var(--ink-soft);
+}
+
+/* --- Question FAQ ----------------------------------------------------------
+   Figma : « Question FAQ », Ouvert = Oui | Non → <details> natif, sans JS.
+   <details class="faq" open>
+     <summary>Qui peut s'inscrire ?
+       <svg class="icon icon--22 faq__plus">…plus</svg>
+       <svg class="icon icon--22 faq__moins">…minus</svg>
+     </summary>
+     <p>…</p>
+   </details>                                                              */
+.faq {
+  padding: var(--space-5) 0;
+  border-bottom: var(--stroke-hair) solid var(--rule);
+}
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font: 600 18px/24px var(--font-title);
+  color: var(--ink);
+  list-style: none;
+  cursor: pointer;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.faq p {
+  margin-top: var(--space-2);
+  font: 400 17px/26px var(--font-body);
+  color: var(--ink-soft);
+}
+.faq .faq__moins { display: none; }
+.faq[open] .faq__plus { display: none; }
+.faq[open] .faq__moins { display: block; }
+
+/* --- Étiquette de couverture (connexion) ----------------------------------- */
+.etiquette {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 400px;
+  max-width: 100%;
+  padding: var(--space-8) var(--space-10);
+  background: var(--paper-raised);
+  border: var(--stroke-pen) solid var(--ink);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-etiquette);
+  transform: rotate(-2deg);
+  text-align: center;
+}
+.etiquette__titre {
+  font: italic 600 64px/68px var(--font-title);  /* Cahier/Logo XL */
+  letter-spacing: -1.5px;
+  color: var(--ink);
+}
+.etiquette__ligne {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding-bottom: var(--space-1);
+  border-bottom: var(--stroke-hair) dashed var(--rule-blue);
+  text-align: left;
+}
+.etiquette__cle {
+  font: 500 11px/14px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.etiquette__valeur {
+  font: 400 21px/22px var(--font-hand);
+  color: var(--ink);
+}

@@ -1,0 +1,84 @@
+/* =========================================================================
+   Petites marques : Surligneur, Tampon, Avatar, Note manuscrite
+   ========================================================================= */
+
+/* --- Surligneur — catégories (matière, rôle) -----------------------------
+   Figma : « Surligneur », Teinte = Jaune | Vert | Rose | Bleu | Papier    */
+.surligneur {
+  display: inline-block;
+  padding: var(--space-0-5) var(--space-1-5);
+  border-radius: var(--radius-s);
+  background: var(--hl-yellow);
+  color: var(--ink);
+  font: 500 11px/14px var(--font-mono);   /* Cahier/Label */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.surligneur--jaune  { background: var(--hl-yellow); }
+.surligneur--vert   { background: var(--hl-green); }
+.surligneur--rose   { background: var(--hl-pink); }
+.surligneur--bleu   { background: var(--hl-blue); }
+.surligneur--papier { background: var(--paper-shade); }
+
+/* --- Tampon — statuts (résolu, épinglé, suspendu…) -----------------------
+   Figma : « Tampon », Encre = Vert | Rouge | Bleu | Gris
+   Le tampon est légèrement penché (−3°) et un peu transparent.          */
+.tampon {
+  display: inline-block;
+  margin: var(--space-1);
+  padding: var(--space-0-5) var(--space-1-5);
+  border: var(--stroke-pen) solid currentColor;
+  border-radius: var(--radius-s);
+  color: var(--green-pen);
+  font: 500 11px/14px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-3deg);
+  opacity: 0.9;
+}
+.tampon--vert  { color: var(--green-pen); }
+.tampon--rouge { color: var(--red-pen); }
+.tampon--bleu  { color: var(--pen); }
+.tampon--gris  { color: var(--ink-faint); }
+
+/* --- Avatar — initiales dans un cercle à l'encre --------------------------
+   Figma : « Avatar », Taille = S (28) | M (36) | L (56)                    */
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: var(--stroke-pen) solid var(--ink);
+  border-radius: var(--radius-full);
+  background: var(--paper-raised);
+  color: var(--ink);
+  font: italic 600 14px/16px var(--font-title);   /* Cahier/Avatar M */
+  text-decoration: none;
+  overflow: hidden;
+}
+.avatar--s { width: 28px; height: 28px; font-size: 12px; line-height: 14px; }
+.avatar--m { width: 36px; height: 36px; font-size: 14px; line-height: 16px; }
+.avatar--l { width: 56px; height: 56px; font-size: 22px; line-height: 24px; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Rangée d'avatars (membres actifs, participants) */
+.avatars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+/* --- Note manuscrite — annotations dans la marge --------------------------
+   Figma : « Note », Stylo = Bleu | Rouge | Vert                            */
+.note {
+  display: inline-block;
+  font: 400 21px/22px var(--font-hand);   /* Cahier/Note */
+  color: var(--pen);
+}
+.note--rouge { color: var(--red-pen); }
+.note--vert  { color: var(--green-pen); }
+.note--s     { font-size: 18px; line-height: 20px; }       /* Cahier/Note S */
+.note--l     { font-weight: 700; font-size: 30px; line-height: 32px; } /* Cahier/Note L */

@@ -1,0 +1,232 @@
+/* =========================================================================
+   Formulaires : Champ, Case à cocher, Interrupteur, Méthode de connexion
+   ========================================================================= */
+
+/* --- Champ ---------------------------------------------------------------
+   Figma : « Champ », Type = Ligne | Zone,
+           État = Défaut | Focus | Erreur | Désactivé
+   <div class="champ">
+     <label class="champ__libelle" for="x">Adresse universitaire</label>
+     <input class="champ__saisie" id="x" …>          ← Type=Ligne
+     <textarea class="champ__saisie champ__saisie--zone"></textarea> ← Zone
+     <p class="champ__aide">…</p>
+   </div>
+   Erreur : aria-invalid="true" sur le champ de saisie.                    */
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.champ__libelle {
+  font: 500 11px/14px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Type=Ligne : on écrit sur la ligne, comme dans un cahier */
+.champ__saisie {
+  width: 100%;
+  padding: var(--space-1-5) 0;
+  border: 0;
+  border-bottom: var(--stroke-pen) solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  font: 400 17px/26px var(--font-body);   /* Cahier/Body */
+  color: var(--ink);
+}
+.champ__saisie::placeholder {
+  color: var(--ink-faint);
+  opacity: 1;
+}
+
+/* Type=Zone : zone de texte encadrée */
+.champ__saisie--zone {
+  min-height: 112px;
+  padding: var(--space-3);
+  border: var(--stroke-hair) solid var(--rule);
+  border-radius: var(--radius-m);
+  background: var(--paper-raised);
+  resize: vertical;
+}
+
+/* État=Focus */
+.champ__saisie:focus,
+.champ__saisie:focus-visible {
+  outline: none;
+  border-bottom-color: var(--pen);
+  box-shadow: 0 1px 0 var(--pen);           /* soulignement 2,5 px */
+}
+.champ__saisie--zone:focus,
+.champ__saisie--zone:focus-visible {
+  border: var(--stroke-pen) solid var(--pen);
+  box-shadow: var(--focus-ring);
+}
+
+/* Texte d'aide (propriété « Afficher aide ») */
+.champ__aide {
+  font: 400 18px/20px var(--font-hand);    /* Cahier/Note S */
+  color: var(--pen);
+}
+
+/* État=Erreur */
+.champ__saisie[aria-invalid="true"] {
+  border-bottom-color: var(--red-pen);
+  box-shadow: 0 1px 0 var(--red-pen);
+}
+.champ__saisie--zone[aria-invalid="true"] {
+  border: var(--stroke-pen) solid var(--red-pen);
+  box-shadow: none;
+}
+.champ:has([aria-invalid="true"]) .champ__aide {
+  color: var(--red-pen);
+}
+
+/* État=Désactivé */
+.champ:has(:disabled) {
+  opacity: 0.45;
+}
+.champ__saisie--zone:disabled {
+  background: var(--paper-shade);
+}
+
+/* --- Case à cocher --------------------------------------------------------
+   Figma : « Case à cocher », Écriture = Imprimée | Manuscrite, Coché = Oui | Non
+   <label class="case"><input type="checkbox"><span>Rester connecté</span></label>
+   Variante manuscrite (to-do du post-it) : class="case case--manuscrite"  */
+.case {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: 400 13px/18px var(--font-ui);       /* Cahier/UI S */
+  color: var(--ink);
+  cursor: pointer;
+}
+.case input {
+  appearance: none;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: var(--stroke-pen) solid var(--ink);
+  border-radius: var(--radius-s);
+  background: var(--paper-raised) center / 14px no-repeat;
+  cursor: pointer;
+}
+/* coche verte (même tracé que l'icône « check ») */
+.case input:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E7A4A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"] .case input:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237FCB98' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .case input:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237FCB98' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  }
+}
+.case--manuscrite {
+  font: 400 21px/22px var(--font-hand);     /* Cahier/Note */
+}
+.case--manuscrite input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* --- Interrupteur ---------------------------------------------------------
+   Figma : « Interrupteur », Actif = Oui | Non
+   <label class="interrupteur">
+     <input type="checkbox" role="switch"><span>publier anonymement</span>
+   </label>
+   La pastille est dessinée en dégradé radial : pas de pseudo-élément sur
+   l'input, donc identique sur tous les navigateurs.                       */
+.interrupteur {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: 500 14px/20px var(--font-ui);       /* Cahier/UI */
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.interrupteur input {
+  appearance: none;
+  flex-shrink: 0;
+  width: 36px;
+  height: 20px;
+  margin: 0;
+  border: var(--stroke-pen) solid var(--ink);
+  border-radius: var(--radius-full);
+  background:
+    radial-gradient(circle 7px at 9px 50%, var(--ink) 96%, transparent 100%),
+    var(--paper-shade);
+  cursor: pointer;
+}
+.interrupteur input:checked {
+  background:
+    radial-gradient(circle 7px at calc(100% - 9px) 50%, var(--paper-raised) 96%, transparent 100%),
+    var(--ink);
+}
+.interrupteur:has(input:checked) {
+  color: var(--ink);
+}
+
+/* --- Méthode de connexion -------------------------------------------------
+   Figma : « Méthode de connexion », Mise en avant = Oui | Non, État = Défaut | Survol
+   <a class="methode methode--avant" href="/auth/cas">
+     <svg class="icon icon--24">…</svg>
+     <span class="methode__textes">
+       <span class="methode__label">Avec l'ENT de mon université</span>
+       <span class="methode__detail">CAS de l'UHA · recommandé</span>
+     </span>
+     <svg class="icon icon--18 methode__fleche">…arrow-right</svg>
+   </a>                                                                    */
+.methode {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--stroke-pen) solid var(--ink);
+  border-radius: var(--radius-s);
+  background: var(--paper-raised);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color .15s, box-shadow .15s, transform .15s;
+}
+.methode__textes {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.methode__label {
+  font: 500 14px/20px var(--font-ui);
+}
+.methode__detail {
+  font: 400 12px/16px var(--font-mono);     /* Cahier/Meta */
+  color: var(--ink-soft);
+}
+.methode--avant {
+  background: var(--hl-yellow);
+  box-shadow: var(--shadow-tampon);
+}
+.methode:hover {
+  background: var(--paper-shade);
+  box-shadow: var(--shadow-tampon-fort);
+  transform: translate(-1px, -1px);
+}
+.methode--avant:hover {
+  background: var(--hl-yellow);
+}
+.methode:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Pile de méthodes (écran de connexion) */
+.methodes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

@@ -1,0 +1,104 @@
+/* =========================================================================
+   Base — remise à zéro légère, icônes, bloc de code, utilitaires
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, p, ul, ol, figure, blockquote {
+  margin: 0;
+}
+
+ul[role="list"], ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--pen);
+}
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/* --- Icônes : <svg class="icon"><use href="icons.svg#pen"/></svg> ------ */
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon--14 { width: 14px; height: 14px; }
+.icon--16 { width: 16px; height: 16px; }
+.icon--18 { width: 18px; height: 18px; }
+.icon--22 { width: 22px; height: 22px; }
+.icon--24 { width: 24px; height: 24px; }
+
+/* --- Bloc de code (question du fil) ------------------------------------ */
+.code {
+  margin: 0;
+  padding: var(--space-4) var(--space-5);
+  background: var(--paper-shade);
+  border-left: 3px solid var(--ink-faint);
+  border-radius: var(--radius-s);
+  font: 400 13px/20px var(--font-mono);   /* Cahier/Code */
+  color: var(--ink);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* --- Utilitaires --------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Rotation décorative : style="--rot: 1.5deg" (post-it, fiches, étiquettes) */
+.rot {
+  transform: rotate(var(--rot, 0deg));
+}
+
+/* Séparateur « ou » entre deux blocs */
+.separateur {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font: 400 21px/22px var(--font-hand);
+  color: var(--ink-soft);
+}
+.separateur::before,
+.separateur::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}

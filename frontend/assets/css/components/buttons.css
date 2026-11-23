@@ -1,37 +1,107 @@
-/**
- * @format
- * @chokinyan
- */
+/* =========================================================================
+   Bouton — composant Figma « Bouton »
+   Variantes : Style = Encre | Crayon | Lien | Rouge
+   États     : Défaut | Survol (:hover) | Focus (:focus-visible) | Désactivé
+   Dépend de : tokens.css (à charger avant ce fichier)
+   ========================================================================= */
 
+/* --- Base commune ------------------------------------------------------- */
 .btn {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--space-2);
-	padding: calc(var(--space-2) - var(--stroke-pen))
-		calc(var(--space-4) - var(--stroke-pen));
-	border: var(--stroke-pen) solid transparent;
-	border-radius: var(--radius-s);
+  /* Figma : auto-layout horizontal, gap 8, padding 8 / 16, contour intérieur.
+     Le contour est compté dans la taille → on le retire du padding pour
+     garder exactement 36 px de haut sur toutes les variantes. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: calc(var(--space-2) - var(--stroke-pen))
+    calc(var(--space-4) - var(--stroke-pen));
+  border: var(--stroke-pen) solid transparent;
+  border-radius: var(--radius-s);
 
-	font: 500 14px/20px var(--font-ui); /* style « Cahier/UI » */
-	color: var(--ink);
-	background: transparent;
-	text-decoration: none;
-	white-space: nowrap;
-	cursor: pointer;
+  font: 500 14px/20px var(--font-ui); /* style « Cahier/UI » */
+  color: var(--ink);
+  background: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
 
-	transition:
-		background-color 0.15s,
-		color 0.15s,
-		box-shadow 0.15s;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
 }
 
-.btn-encre {
-	background: var(--ink);
-	color: var(--paper-raised);
-	box-shadow: var(--shadow-encre);
+/* Icône optionnelle (propriété « Icône » + « Glyphe » dans Figma) */
+.btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: currentColor; /* l'icône prend la couleur du texte */
+  fill: none;
 }
 
-.btn-encre:hover {
-	background: var(--pen);
+/* Bouton pleine largeur (instances en FILL dans les formulaires mobiles) */
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* --- Style=Encre : action principale ----------------------------------- */
+.btn--encre {
+  background: var(--ink);
+  color: var(--paper-raised);
+  box-shadow: var(--shadow-encre);
+}
+.btn--encre:hover {
+  background: var(--pen);
+}
+
+/* --- Style=Crayon : action secondaire ---------------------------------- */
+.btn--crayon {
+  border-color: var(--ink);
+}
+.btn--crayon:hover {
+  background: var(--hl-yellow);
+}
+
+/* --- Style=Lien : action discrète, soulignée --------------------------- */
+.btn--lien {
+  padding-inline: 0;
+  color: var(--pen);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.btn--lien:hover {
+  background: var(--hl-yellow);
+}
+
+/* --- Style=Rouge : action destructive ---------------------------------- */
+.btn--rouge {
+  border-color: var(--red-pen);
+  color: var(--red-pen);
+}
+.btn--rouge:hover {
+  background: var(--red-pen);
+  color: var(--paper-raised);
+}
+
+/* --- État=Focus : anneau bleu (style d'effet « Focus/Anneau ») ---------- */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+/* Dans Figma, les variantes sans fond prennent le fond papier au focus */
+.btn--crayon:focus-visible,
+.btn--lien:focus-visible,
+.btn--rouge:focus-visible {
+  background: var(--paper-raised);
+}
+
+/* --- État=Désactivé ----------------------------------------------------- */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none; /* bloque aussi le survol */
 }

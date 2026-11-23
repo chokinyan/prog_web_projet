@@ -1,0 +1,151 @@
+/* =========================================================================
+   Admin : Registre (table des utilisateurs), Signalement, Bloc d'identité
+   ========================================================================= */
+
+/* --- Registre -------------------------------------------------------------
+   Figma : « Ligne utilisateur » + en-têtes. En HTML : une vraie <table>.
+   <div class="registre-defile">
+     <table class="registre">
+       <thead><tr><th>Utilisateur</th><th>Espace</th><th>Rôle</th>
+                  <th>Statut</th><th>Dernière activité</th><th><span class="sr-only">Actions</span></th></tr></thead>
+       <tbody><tr>
+         <td><div class="personne"><span class="avatar avatar--s">LM</span>
+             <div><p class="personne__nom">Lucas Martin</p><p class="personne__email">…</p></div></div></td>
+         <td>ENSISA · 1A IR</td>
+         <td><span class="surligneur surligneur--papier">Étudiant</span></td>
+         <td><span class="tampon tampon--vert">Actif</span></td>
+         <td class="registre__meta">il y a 3 h</td>
+         <td><a class="btn btn--lien" href="…">Gérer</a></td>
+       </tr></tbody>
+     </table>
+   </div>                                                                  */
+.registre-defile {
+  overflow-x: auto;                       /* la table défile sur mobile */
+}
+.registre {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+  font: 400 13px/18px var(--font-ui);     /* Cahier/UI S */
+  color: var(--ink-soft);
+}
+.registre th {
+  padding: var(--space-2) var(--space-2);
+  border-bottom: var(--stroke-pen) solid var(--ink);
+  font: 500 11px/14px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-soft);
+}
+.registre td {
+  padding: var(--space-3) var(--space-2);
+  border-bottom: var(--stroke-hair) dashed var(--rule-blue);
+  vertical-align: middle;
+}
+.registre :is(th, td):first-child { padding-left: var(--space-5); }
+.registre :is(th, td):last-child  { padding-right: var(--space-5); }
+/* largeurs des colonnes (identiques au composant Figma) */
+.registre th:nth-child(2) { width: 170px; }
+.registre th:nth-child(3),
+.registre th:nth-child(4),
+.registre th:nth-child(5) { width: 130px; }
+.registre th:nth-child(6) { width: 70px; }
+.registre .tampon { margin: 0; }
+.registre__meta {
+  font: 400 12px/16px var(--font-mono);
+}
+.registre tbody tr:hover {
+  background: var(--paper);
+}
+
+.personne {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.personne__nom {
+  font: 500 14px/20px var(--font-ui);
+  color: var(--ink);
+}
+.personne__email {
+  font: 400 12px/16px var(--font-mono);
+  color: var(--ink-faint);
+}
+
+/* --- Signalement (file de modération) -------------------------------------
+   Figma : « Signalement », État = Défaut | Sélectionné
+   <a class="signalement" href="…" aria-current="true">     ← sélectionné
+     <span class="signalement__entete">
+       <span class="surligneur surligneur--rose">Corrigé non autorisé</span>
+       <span class="signalement__date">il y a 40 min</span>
+     </span>
+     <span class="signalement__titre">Réponse anonyme dans « Algo »</span>
+     <span class="signalement__meta">Signalé 3 fois · ENSISA · 1A IR</span>
+   </a>                                                                    */
+.signalement {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--paper-raised);
+  border: var(--stroke-hair) solid var(--rule);
+  border-radius: var(--radius-s);
+  color: var(--ink);
+  text-decoration: none;
+}
+.signalement:hover {
+  border-color: var(--ink-faint);
+}
+.signalement[aria-current="true"] {
+  border: var(--stroke-pen) solid var(--ink);
+  box-shadow: var(--shadow-tampon);
+}
+.signalement:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.signalement__entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.signalement__date,
+.signalement__meta {
+  font: 400 12px/16px var(--font-mono);
+  color: var(--ink-faint);
+}
+.signalement__meta { color: var(--ink-soft); }
+.signalement__titre {
+  font: 500 14px/20px var(--font-ui);
+}
+.signalements {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* --- Identité révélée (admins seulement) ---------------------------------- */
+.identite {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--pen-soft);
+  border-radius: var(--radius-s);
+  color: var(--pen);
+}
+.identite__textes { flex: 1; min-width: 0; }
+.identite__nom { font: 500 14px/20px var(--font-ui); color: var(--ink); }
+.identite__note { font: 400 12px/16px var(--font-mono); color: var(--ink-soft); }
+
+/* Citation du contenu signalé */
+.citation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--paper-raised);
+  border-left: 3px solid var(--ink-faint);
+}

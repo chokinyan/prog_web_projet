@@ -1,0 +1,324 @@
+.sujet {
+	display: grid;
+	grid-template-columns: 56px auto 1fr auto;
+	grid-template-areas:
+		'votes tags    auteur  statut'
+		'votes titre   titre   titre'
+		'votes extrait extrait extrait'
+		'votes pied    pied    pied';
+	column-gap: var(--space-2);
+	row-gap: var(--space-2);
+	padding: var(--space-5) 0;
+	border-bottom: var(--stroke-hair) dashed var(--rule-blue);
+}
+.sujet__votes {
+	grid-area: votes;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-1);
+	margin-right: var(--space-2); /* 16 px en tout avec le gap */
+	padding-top: var(--space-1);
+	color: var(--ink-soft);
+}
+.sujet__score {
+	font: 600 18px/22px var(--font-title); /* Cahier/Votes */
+	color: var(--ink);
+}
+.sujet__tags {
+	grid-area: tags;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+.sujet__auteur {
+	grid-area: auteur;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	min-width: 0;
+}
+.sujet__statut {
+	grid-area: statut;
+	justify-self: end;
+	align-self: center;
+}
+.sujet__statut .tampon {
+	margin: 0;
+}
+.sujet__nom {
+	font: 500 14px/20px var(--font-ui);
+	color: var(--ink);
+}
+.sujet__date {
+	font: 400 12px/16px var(--font-mono);
+	color: var(--ink-faint);
+	white-space: nowrap;
+}
+.sujet__titre {
+	grid-area: titre;
+	font: 600 18px/24px var(--font-title); /* Cahier/Title S */
+}
+.sujet__titre a {
+	color: var(--ink);
+	text-decoration: none;
+}
+.sujet__titre a:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--pen);
+	text-underline-offset: 3px;
+}
+.sujet__extrait {
+	grid-area: extrait;
+	font: 400 15px/22px var(--font-body); /* Cahier/Body S */
+	color: var(--ink-soft);
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* deux lignes maximum */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.sujet__pied {
+	grid-area: pied;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding-top: var(--space-1);
+	font: 400 12px/16px var(--font-mono);
+	color: var(--ink-soft);
+}
+.sujet__pied .icon {
+	color: var(--ink-faint);
+}
+.sujet__pied .note {
+	margin-left: auto;
+}
+
+@media (max-width: 767px) {
+	.sujet {
+		grid-template-columns: auto 1fr auto;
+		grid-template-areas:
+			'tags    tags    statut'
+			'titre   titre   titre'
+			'extrait extrait extrait'
+			'auteur  auteur  auteur'
+			'votes   pied    pied';
+		padding: var(--space-4) 0;
+	}
+	.sujet__votes {
+		flex-direction: row;
+		align-self: center;
+		margin-right: 0;
+		padding-top: var(--space-1);
+	}
+	.sujet__votes .icon {
+		width: 16px;
+		height: 16px;
+	}
+	.sujet__score {
+		font: 500 14px/20px var(--font-ui);
+	}
+}
+
+/* --- Réponse ---------------------------------------------------------------
+   Figma : « Réponse », Meilleure = Oui | Non, Format = Bureau | Mobile
+   <article class="reponse reponse--meilleure">
+     <div class="reponse__votes">…</div>
+     <div class="reponse__statut"><span class="tampon tampon--vert">Meilleure réponse</span></div>
+     <div class="reponse__entete">avatar · nom · date</div>
+     <div class="reponse__texte"><p>…</p></div>
+     <div class="reponse__actions"><a class="btn btn--lien">Répondre</a>…</div>
+     <span class="note note--vert reponse__note">✓ validée par Lucas</span>
+   </article>                                                              */
+.reponse {
+	position: relative;
+	display: grid;
+	grid-template-columns: 56px 1fr auto;
+	grid-template-areas:
+		'votes entete  statut'
+		'votes texte   texte'
+		'votes actions note';
+	column-gap: var(--space-4);
+	row-gap: var(--space-2);
+	padding: var(--space-5) 0;
+	border-bottom: var(--stroke-hair) dashed var(--rule-blue);
+}
+.reponse__votes {
+	grid-area: votes;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-1);
+	padding-top: var(--space-1);
+	color: var(--ink-soft);
+}
+.reponse__score {
+	font: 600 18px/22px var(--font-title);
+	color: var(--ink);
+}
+.reponse__statut {
+	grid-area: statut;
+	align-self: center;
+}
+.reponse__statut .tampon {
+	margin: 0;
+}
+.reponse__entete {
+	grid-area: entete;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+.reponse__nom {
+	font: 500 14px/20px var(--font-ui);
+	color: var(--ink);
+}
+.reponse__date {
+	font: 400 12px/16px var(--font-mono);
+	color: var(--ink-faint);
+}
+.reponse__texte {
+	grid-area: texte;
+	font: 400 17px/26px var(--font-body);
+	color: var(--ink);
+}
+.reponse__texte > * + * {
+	margin-top: var(--space-3);
+}
+.reponse__actions {
+	grid-area: actions;
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+}
+.reponse__note {
+	grid-area: note;
+	align-self: center;
+	justify-self: end;
+}
+
+/* Meilleure=Oui : trait vert dans la colonne du contenu */
+.reponse--meilleure::before {
+	content: '';
+	grid-area: 1 / 2 / -1 / 3;
+	border-left: 3px solid var(--green-pen);
+}
+.reponse--meilleure :is(.reponse__entete, .reponse__texte, .reponse__actions) {
+	padding-left: 14px;
+}
+
+@media (max-width: 767px) {
+	.reponse {
+		grid-template-columns: auto 1fr;
+		grid-template-areas:
+			'statut  statut'
+			'entete  entete'
+			'texte   texte'
+			'votes   actions'
+			'note    note';
+		column-gap: var(--space-4);
+		padding: var(--space-4) 0;
+	}
+	.reponse:not(.reponse--meilleure) .reponse__statut {
+		display: none;
+	}
+	.reponse__votes {
+		flex-direction: row;
+		align-self: center;
+		padding-top: 0;
+	}
+	.reponse__votes .icon {
+		width: 16px;
+		height: 16px;
+	}
+	.reponse__score {
+		font: 500 14px/20px var(--font-ui);
+	}
+	.reponse__note {
+		justify-self: start;
+	}
+
+	.reponse--meilleure::before {
+		display: none;
+	}
+	.reponse--meilleure {
+		padding-left: 14px;
+		border-left: 3px solid var(--green-pen);
+	}
+	.reponse--meilleure
+		:is(.reponse__entete, .reponse__texte, .reponse__actions) {
+		padding-left: 0;
+	}
+}
+
+/* --- Post-it ---------------------------------------------------------------
+   Figma : « Post-it », Couleur = Jaune | Vert | Rose
+   <aside class="postit postit--jaune rot" style="--rot: 1.2deg">
+     <p class="postit__titre">Règles de la classe</p>
+     <p class="postit__texte">…</p>
+     <a class="btn btn--crayon" href="…">Demander l'accès</a>   ← optionnel
+   </aside>                                                                */
+.postit {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-2);
+	padding: var(--space-5);
+	background: var(--hl-yellow);
+	color: var(--ink);
+	box-shadow: var(--shadow-postit);
+}
+.postit--jaune {
+	background: var(--hl-yellow);
+}
+.postit--vert {
+	background: var(--hl-green);
+}
+.postit--rose {
+	background: var(--hl-pink);
+}
+.postit__titre {
+	font: 700 30px/32px var(--font-hand); /* Cahier/Note L */
+}
+.postit__texte {
+	font: 400 21px/22px var(--font-hand); /* Cahier/Note */
+	white-space: pre-line; /* garde les retours à la ligne */
+}
+.postit .btn {
+	margin-top: var(--space-1);
+}
+
+/* --- Fiche bristol (chiffres admin, étapes de l'accueil) -------------------
+   <div class="fiche rot" style="--rot: -1deg">
+     <p class="fiche__libelle">Étudiants inscrits</p>
+     <div class="fiche__corps">
+       <p class="fiche__valeur">412</p>
+       <span class="note note--vert">+18 cette semaine</span>
+     </div>
+   </div>                                                                  */
+.fiche {
+	background: var(--paper-raised);
+	border: var(--stroke-hair) solid var(--rule);
+	border-radius: var(--radius-s);
+	box-shadow: var(--shadow-fiche);
+}
+.fiche__libelle {
+	padding: var(--space-3) var(--space-4) var(--space-2);
+	border-bottom: var(--stroke-pen) solid var(--margin);
+	font: 500 11px/14px var(--font-mono);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-soft);
+}
+.fiche__corps {
+	padding: var(--space-2) var(--space-4) var(--space-3);
+}
+.fiche__valeur {
+	font: 600 44px/52px var(--font-title); /* Cahier/Stat */
+	letter-spacing: -1px;
+	color: var(--ink);
+}
+.fiches {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-6);
+}
